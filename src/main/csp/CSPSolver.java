@@ -48,6 +48,21 @@ public class CSPSolver {
         return recursiveBacktracking(new ArrayList<LocalDate>(), constraints, domains, nMeetings);
     }
 
+    /**
+     * Implements csp backtracking in order to recursively solve the csp
+     * 
+     * @param assignment  list of local dates that holds the dates for the meetings
+     * @param constraints Date constraints on the meeting times (unary and binary
+     *                    for this assignment)
+     * @param domains     list of meeting domains which are indexed by meeting
+     *                    variable
+     * @param nMeetings   The number of meetings that must be scheduled, indexed
+     *                    from 0 to n-1
+     *
+     * @return A list of dates that satisfies each of the constraints for each of
+     *         the n meetings,
+     *         indexed by the variable they satisfy, or null if no solution exists.
+     */
     private static List<LocalDate> recursiveBacktracking(ArrayList<LocalDate> assignment,
             Set<DateConstraint> constraints,
             ArrayList<MeetingDomain> domains, int nMeetings) {
@@ -70,6 +85,15 @@ public class CSPSolver {
         return null;
     }
 
+    /**
+     * informs on whether or not the given assignments satify the given constraints
+     * 
+     * @param assignment  list of local dates that holds the dates for the meetings
+     * @param constraints Date constraints on the meeting times (unary and binary
+     *
+     * @return true or false to whether or not two dates are satisfied by the
+     *         constraints
+     */
     private static boolean isSatisfied(ArrayList<LocalDate> assignment, Set<DateConstraint> constraints) {
 
         for (DateConstraint date : constraints) {
@@ -173,6 +197,17 @@ public class CSPSolver {
         }
     }
 
+    /**
+     * takes in an arc and list of meeting domains and pruned the values that are
+     * unnecessary
+     * 
+     * @param tailOrHead an arc in which the head and tail are the meeting indexes
+     *                   corresponding with Meeting variables and their associated
+     *                   domains.
+     * @param varDomains List of MeetingDomains in which index i corresponds to D_i
+     *
+     * @return true or false to whether or inconsistent values have been removed
+     */
     private static Boolean removeInconsistentValues(Arc tailOrHead, List<MeetingDomain> varDomains) {
 
         boolean removed = false;
